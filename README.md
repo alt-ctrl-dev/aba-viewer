@@ -1,5 +1,5 @@
 # AbaViewer
-
+[![Unit tests](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/ci.yml)
 
 ## Pre-requisite
 - Elixir ~> v1.14
