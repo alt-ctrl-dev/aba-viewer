@@ -9,7 +9,8 @@ defmodule AbaViewerWeb.AbaLive.Index do
        accept: ~w(.jpg),
        max_entries: 1,
        progress: &handle_progress/3,
-       auto_upload: true
+       auto_upload: true,
+       max_file_size: 5_242_880
      )}
   end
 
