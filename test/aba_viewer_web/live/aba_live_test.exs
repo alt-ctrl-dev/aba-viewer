@@ -14,7 +14,7 @@ defmodule AbaViewerWeb.AbaLiveTest do
     test "lists all validator", %{conn: conn} do
       {:ok, _index_live, html} = live(conn, ~p"/")
 
-      assert html =~ "Listing Validator"
+      assert html =~ "Upload file"
     end
   end
 end
