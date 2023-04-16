@@ -36,11 +36,10 @@ defmodule AbaViewer.Application do
   end
 
   defp shutdown_when_inactive(every_ms) do
-    IO.puts("prepping shutdown_when_inactive")
     Process.sleep(every_ms)
 
-    if :ranch.procs(AbaViewerWeb.Endpoint.HTTP, :connections)
-       |> IO.inspect(label: "shutdown_when_inactive") == [] do
+    if :ranch.procs(AbaViewerWeb.Endpoint.HTTP, :connections) ==
+         [] do
       System.stop(0)
     else
       shutdown_when_inactive(every_ms)
