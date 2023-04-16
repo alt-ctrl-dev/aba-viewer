@@ -1,6 +1,7 @@
 <p class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Aba Viewer</p>
 <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center">This tool will help you quickly identify issues with your ABA file.</p>
 
+
 <%= unless @running do %>
 <div phx-drop-target={@uploads.avatar.ref} class="flex items-center justify-center w-full">
   <form id="upload-form" phx-submit="save" phx-change="validate" class="w-full">
@@ -15,7 +16,8 @@
   </form>
     
 </div>
-<%!-- render each avatar entry --%><%= for entry <- @uploads.avatar.entries do %>
+<%!-- render each avatar entry --%>
+<%= for entry <- @uploads.avatar.entries do %>
 <div class="flex flex-col space-y-2 mt-2">
   <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
   <%= for err <- upload_errors(@uploads.avatar, entry) do %>
@@ -34,6 +36,28 @@
 
   </div>
 <% end %>
+
+<%= unless is_nil(@result) do %>
+ <div class="flex flex-col justify-center items-center space-y-4 mt-8">
+
+    <p class="middle text-center text-black dark:text-white">
+      Got Result
+    </p>
+    <p class="middle text-center text-black dark:text-white">
+      <%= for item <- @result do %>
+      <.record item={item} />
+      <% end %>
+    </p>
+</div>
+<% end %>
+<%= unless is_nil(@error) do %>
+ <div class="flex justify-center items-center space-x-4 mt-8">
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  <span class="font-medium">Got Error: </span> <%= @error %>
+</div>
+</div>
+<% end %>
+
 <% else %>
  <div class="flex justify-center items-center space-x-4">
     <div role="status">
@@ -45,5 +69,3 @@
     </p>
 </div>
 <% end %>
-
-
