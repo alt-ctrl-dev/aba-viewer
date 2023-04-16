@@ -24,6 +24,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     {:noreply, cancel_upload(socket, :avatar, ref)}
   end
 
+  @impl Phoenix.LiveView
+  def handle_info(:clear_success_flash, socket) do
+    {:noreply, clear_flash(socket, :success)}
+  end
+
   defp error_to_string(:too_large), do: "Too large"
   defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
   defp error_to_string(:too_many_files), do: "You have selected too many files"
@@ -53,8 +58,8 @@ defmodule AbaViewerWeb.AbaLive.Index do
             {:ok, "/uploads/#{Path.basename(dest)}"}
           end
         )
-
-      {:noreply, put_flash(socket, :info, "file #{uploaded_file} uploaded")}
+      Process.send_after(self(), :clear_success_flash, 5000)
+      {:noreply, put_flash(socket, :success, "File uploaded! Processing now")}
     else
       {:noreply, socket}
     end
