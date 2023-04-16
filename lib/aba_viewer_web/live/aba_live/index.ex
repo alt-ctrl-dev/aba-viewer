@@ -6,7 +6,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
     {:ok,
      socket
      |> allow_upload(:avatar,
-       accept: ~w(.jpg),
+       accept: ~w(.aba),
        max_entries: 1,
        progress: &handle_progress/3,
        auto_upload: true,
