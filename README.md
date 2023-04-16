@@ -1,6 +1,9 @@
 # AbaViewer
 [![Unit tests](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/ci.yml)
 
+
+Visit the live version here: https://aba-viewer.fly.dev/
+
 ## Pre-requisite
 - Elixir ~> v1.14
 
