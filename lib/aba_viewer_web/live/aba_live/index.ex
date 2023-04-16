@@ -11,7 +11,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
        progress: &handle_progress/3,
        auto_upload: true,
        max_file_size: 5_242_880
-     )}
+     )|>assign( running: false, task: nil)}
   end
 
   @impl Phoenix.LiveView
@@ -58,8 +58,9 @@ defmodule AbaViewerWeb.AbaLive.Index do
             {:ok, "/uploads/#{Path.basename(dest)}"}
           end
         )
+
       Process.send_after(self(), :clear_success_flash, 5000)
-      {:noreply, put_flash(socket, :success, "File uploaded! Processing now")}
+      {:noreply, put_flash(socket, :success, "File uploaded! Processing now")|>assign( running: true, task: task)}
     else
       {:noreply, socket}
     end

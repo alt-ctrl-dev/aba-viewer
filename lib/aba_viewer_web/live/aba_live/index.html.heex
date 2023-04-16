@@ -1,5 +1,7 @@
 <p class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Aba Viewer</p>
 <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center">This tool will help you quickly identify issues with your ABA file.</p>
+
+<%= unless @running do %>
 <div phx-drop-target={@uploads.avatar.ref} class="flex items-center justify-center w-full">
   <form id="upload-form" phx-submit="save" phx-change="validate" class="w-full">
     <label for={@uploads.avatar.ref} class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -8,7 +10,7 @@
           <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop your ABA file</p>
           <p class="text-xs text-gray-500 dark:text-gray-400">ABA file (MAX. 5MB)</p>
       </div>
-      <.live_file_input upload={@uploads.avatar} class="hidden" /> 
+      <.live_file_input upload={@uploads.avatar} class="sr-only" /> 
     </label>
   </form>
     
@@ -33,10 +35,16 @@
 
   </div>
 <% end %>
-
-
-
-<%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
-<%= for err <- upload_errors(@uploads.avatar) do %>
-  <p class="alert alert-danger none"><%= error_to_string(err) %></p>
+<% else %>
+ <div class="flex justify-center items-center space-x-4">
+    <div role="status">
+         <Heroicons.arrow_path class="ml-1 w-10 h-10 inline animate-spin text-black dark:text-white" />
+        <span class="sr-only">Loading...</span>
+    </div>
+    <p class="middle text-center text-black dark:text-white">
+      Processing file
+    </p>
+</div>
 <% end %>
+
+
