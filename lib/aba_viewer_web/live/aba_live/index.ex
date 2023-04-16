@@ -1,6 +1,8 @@
 defmodule AbaViewerWeb.AbaLive.Index do
   use AbaViewerWeb, :live_view
 
+  @max_file_size_bytes 10_485_760
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
@@ -10,8 +12,8 @@ defmodule AbaViewerWeb.AbaLive.Index do
        max_entries: 1,
        progress: &handle_progress/3,
        auto_upload: true,
-       max_file_size: 5_242_880
      )|>assign( running: false, task: nil)}
+       max_file_size: @max_file_size_bytes
   end
 
   @impl Phoenix.LiveView
@@ -33,6 +35,26 @@ defmodule AbaViewerWeb.AbaLive.Index do
   defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
   defp error_to_string(:too_many_files), do: "You have selected too many files"
 
+  defp format_bytes(bytes, kind \\ 0)
+
+  defp format_bytes(bytes, kind) when is_integer(bytes) do
+    bytes = div(bytes, 1024)
+    #
+    if bytes >= 1024 do
+      format_bytes(bytes, kind + 1)
+    else
+      "#{bytes} #{byte_kind(kind)}"
+    end
+  end
+
+  defp format_bytes(bytes, _) do
+    "#{bytes} bytes"
+  end
+
+  defp byte_kind(0), do: "KB"
+  defp byte_kind(1), do: "MB"
+  defp byte_kind(2), do: "GB"
+  defp byte_kind(_), do: "B"
   defp handle_progress(
          :avatar,
          %Phoenix.LiveView.UploadEntry{client_name: client_name, uuid: file_uuid} = entry,
