@@ -38,24 +38,19 @@ defmodule AbaViewerWeb.AbaLive.Index do
           socket,
           entry,
           fn %{path: path} ->
-            IO.inspect(entry, label: "entry")
-
             extension = Path.extname(client_name)
-            # "1594600461221.jpg"
             dest =
               Path.join([
-                :code.priv_dir(:aba_viewer) |> IO.inspect(label: "priv_dir"),
+                :code.priv_dir(:aba_viewer),
                 "static",
                 "uploads",
                 Enum.join([file_uuid, extension])
               ])
-              |> IO.inspect(label: "dest")
 
             File.cp!(path, dest)
-            {:ok, ~p"/uploads/#{Path.basename(dest) |> IO.inspect(label: "basename dest")}"}
+            {:ok, "/uploads/#{Path.basename(dest)}"}
           end
         )
-        |> IO.inspect(label: "uploaded_file")
 
       {:noreply, put_flash(socket, :info, "file #{uploaded_file} uploaded")}
     else
