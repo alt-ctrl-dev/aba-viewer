@@ -15,7 +15,8 @@ defmodule AbaViewer.Application do
       # Start Finch
       {Finch, name: AbaViewer.Finch},
       # Start the Endpoint (http/https)
-      AbaViewerWeb.Endpoint
+      AbaViewerWeb.Endpoint,
+      {Task, fn -> shutdown_when_inactive(:timer.minutes(1)) end},
       # Start a worker by calling: AbaViewer.Worker.start_link(arg)
       # {AbaViewer.Worker, arg}
     ]
@@ -32,5 +33,15 @@ defmodule AbaViewer.Application do
   def config_change(changed, _new, removed) do
     AbaViewerWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp shutdown_when_inactive(every_ms) do
+    IO.puts("prepping shutdown_when_inactive")
+    Process.sleep(every_ms)
+    if :ranch.procs(AbaViewerWeb.Endpoint.HTTP, :connections) |> IO.inspect(label: "shutdown_when_inactive") == [] do
+      System.stop(0)
+    else
+      shutdown_when_inactive(every_ms)
+    end
   end
 end
