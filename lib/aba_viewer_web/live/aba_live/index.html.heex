@@ -15,26 +15,26 @@
 </div>
 <%!-- render each avatar entry --%>
 <%= for entry <- @uploads.avatar.entries do %>
-  <div class="flex">
+<div class="flex flex-col space-y-2 mt-2">
+  <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
+  <%= for err <- upload_errors(@uploads.avatar, entry) do %>
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+      <span class="font-medium">Error!</span> <%= error_to_string(err) %>
+    </div>
+  <% end %>
 
-    
-    <Heroicons.document class="w-8 h-full" />
-
+  <div class="flex space-x-4">
     <%!-- entry.progress will update automatically for in-flight entries --%>
-    <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
+    <progress value={entry.progress} max="100" class="flex-1"> <%= entry.progress %>% </progress>
 
     <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
-    <button type="button" phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel"><Heroicons.x_circle class="w-8 h-full" /></button>
-
-    <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
-    <%= for err <- upload_errors(@uploads.avatar, entry) do %>
-      <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-        <span class="font-medium">Error!</span> <%= error_to_string(err) %>
-      </div>
-    <% end %>
+    <button type="button" phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel"><Heroicons.x_circle class="w-8 h-full text-black dark:text-white" /></button>
+  </div>
 
   </div>
 <% end %>
+
+
 
 <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
 <%= for err <- upload_errors(@uploads.avatar) do %>
