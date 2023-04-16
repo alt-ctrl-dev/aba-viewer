@@ -6,10 +6,8 @@ defmodule AbaViewerWeb.AbaLive.Index do
     {:ok, socket}
   end
 
-
   # @impl true
   # def handle_info({AbaViewerWeb.AbaLive.FormComponent, {:saved, aba}}, socket) do
   #   {:noreply, socket}
   # end
-
 end
