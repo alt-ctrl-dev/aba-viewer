@@ -1,0 +1,24 @@
+# fly.toml file generated for aba-viewer on 2023-04-16T22:13:11+08:00
+
+app = "aba-viewer"
+kill_signal = "SIGTERM"
+primary_region = "syd"
+
+[env]
+  PHX_HOST = "aba-viewer.fly.dev"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 1000
+    soft_limit = 1000
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
