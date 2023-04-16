@@ -96,7 +96,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
   defp byte_kind(_), do: "B"
 
   defp issue_error(:bsb_filler), do: "Incorrect BSB filler"
-  defp issue_error(:records_mismatch), do: "Records don't match-up"
+  defp issue_error(:records_mismatch), do: "Records count don't match"
   defp issue_error(:bsb), do: "BSB is incorrect"
   defp issue_error(x), do: x
 
