@@ -148,9 +148,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :error, fn -> result end)
 
     ~H"""
-    <div class="flex space-x-4">
-      <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
-      <p>Descriptive record has the following error: <%= error_to_string(@error) %></p>
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+      <div class="flex space-x-4">
+        <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
+        <p>Descriptive record has the following error: <%= error_to_string(@error) %></p>
+      </div>
     </div>
     """
   end
@@ -159,9 +161,12 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :result, fn -> result end)
 
     ~H"""
+
+    <div class="p-4 mb-4 text-sm text-emerald-800 rounded-lg bg-emerald-50 dark:bg-gray-800 dark:text-emerald-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.check_circle class="w-6 h-6 text-green-900 fill-green-200" />
       <p>Descriptive record is good</p>
+    </div>
     </div>
     """
   end
@@ -170,9 +175,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :error, fn -> result end)
 
     ~H"""
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
       <p>File Total record has the following error: <%= error_to_string(@error) %></p>
+    </div>
     </div>
     """
   end
@@ -181,9 +188,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :result, fn -> result end)
 
     ~H"""
+     <div class="p-4 mb-4 text-sm text-emerald-800 rounded-lg bg-emerald-50 dark:bg-gray-800 dark:text-emerald-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.check_circle class="w-6 h-6 text-green-900 fill-green-200" />
       <p>File Total record is good</p>
+    </div>
     </div>
     """
   end
@@ -192,9 +201,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :error, fn -> result end)
 
     ~H"""
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
       <p>Detail record has the following error: <%= error_to_string(@error) %></p>
+    </div>
     </div>
     """
   end
@@ -204,9 +215,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :line, fn -> line end)
 
     ~H"""
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
       <p>Detail record has the following error on line <%= @line %>: <%= error_to_string(@error) %></p>
+    </div>
     </div>
     """
   end
@@ -215,9 +228,12 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :result, fn -> result end)
 
     ~H"""
+
+    <div class="p-4 mb-4 text-sm text-emerald-800 rounded-lg bg-emerald-50 dark:bg-gray-800 dark:text-emerald-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.check_circle class="w-6 h-6 text-green-900 fill-green-200" />
       <p>Detail record is good</p>
+    </div>
     </div>
     """
   end
