@@ -1,19 +1,24 @@
-Upload file
-
-<form id="upload-form" phx-submit="save" phx-change="validate">
-  <.live_file_input upload={@uploads.avatar} />
-</form>
-
-<section phx-drop-target={@uploads.avatar.ref} class="bg-red-200 h-20">
-
+<p class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Aba Viewer</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center">This tool will help you quickly identify issues with your ABA file.</p>
+<div phx-drop-target={@uploads.avatar.ref} class="flex items-center justify-center w-full">
+  <form id="upload-form" phx-submit="save" phx-change="validate" class="w-full">
+    <label for={@uploads.avatar.ref} class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop your ABA file</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">ABA file (MAX. 5MB)</p>
+      </div>
+      <.live_file_input upload={@uploads.avatar} class="hidden" /> 
+    </label>
+  </form>
+    
+</div>
 <%!-- render each avatar entry --%>
 <%= for entry <- @uploads.avatar.entries do %>
-  <article class="upload-entry">
+  <div class="flex">
 
-    <figure>
-      <.live_img_preview entry={entry} />
-      <figcaption><%= entry.client_name %></figcaption>
-    </figure>
+    
+    <Heroicons.document class="w-8 h-full" />
 
     <%!-- entry.progress will update automatically for in-flight entries --%>
     <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
@@ -23,15 +28,15 @@ Upload file
 
     <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
     <%= for err <- upload_errors(@uploads.avatar, entry) do %>
-      <p class="alert alert-danger"><%= error_to_string(err) %></p>
+      <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <span class="font-medium">Error!</span> <%= error_to_string(err) %>
+      </div>
     <% end %>
 
-  </article>
+  </div>
 <% end %>
 
 <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
 <%= for err <- upload_errors(@uploads.avatar) do %>
   <p class="alert alert-danger none"><%= error_to_string(err) %></p>
 <% end %>
-
-</section>
