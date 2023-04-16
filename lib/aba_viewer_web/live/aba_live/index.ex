@@ -40,6 +40,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
           entry,
           fn %{path: path} ->
             extension = Path.extname(client_name)
+
             dest =
               Path.join([
                 :code.priv_dir(:aba_viewer),
