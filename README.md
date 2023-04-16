@@ -5,9 +5,6 @@
 - Elixir ~> v1.14
 
 
-## Setup
-Run mix deps.get
-
 ## Running
 To start your Phoenix server:
 
