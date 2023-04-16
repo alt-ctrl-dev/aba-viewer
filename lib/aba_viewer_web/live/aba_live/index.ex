@@ -25,7 +25,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
 
   @impl Phoenix.LiveView
   def handle_event("validate", _params, socket) do
-    {:noreply, socket}
+    {:noreply, socket |> assign(result: nil, error: nil)}
   end
 
   @impl Phoenix.LiveView
