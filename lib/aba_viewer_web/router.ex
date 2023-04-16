@@ -17,7 +17,7 @@ defmodule AbaViewerWeb.Router do
   scope "/", AbaViewerWeb do
     pipe_through(:browser)
 
-    get("/", PageController, :home)
+    live("/", AbaLive.Index, :index)
   end
 
   # Other scopes may use custom stacks.
