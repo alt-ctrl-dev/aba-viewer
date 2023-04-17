@@ -2,6 +2,10 @@ name: Fly Deploy
 on:
   workflow_dispatch:
   push:
+    paths:
+      - '**.ex'
+      - '**.exs'
+      - '!**.md'
     branches:
       - main
 jobs:
