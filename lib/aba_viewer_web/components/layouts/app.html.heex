@@ -7,6 +7,9 @@
       <p class="rounded-full bg-brand/5 px-2 text-[0.9rem] font-medium leading-6 text-brand">
         ABA Viewer
       </p>
+      <p class="px-2 text-xs leading-6">
+        v<%= System.get_env("APP_VERSION", Mix.Project.config[:version]) %>
+      </p>
     </div>
     <div class="flex items-center gap-4">
       <a href="https://github.com/alt-ctrl-dev/aba-viewer"
