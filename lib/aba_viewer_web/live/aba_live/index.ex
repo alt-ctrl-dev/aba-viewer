@@ -98,7 +98,8 @@ defmodule AbaViewerWeb.AbaLive.Index do
 
   defp issue_error(:bsb_filler), do: "Incorrect BSB filler"
   defp issue_error(:records_mismatch), do: "Records count don't match"
-  defp issue_error(:bsb), do: "BSB is incorrect"
+  defp issue_error(:bsb), do: "Incorrect BSB"
+  defp issue_error(:account_number), do: "Incorrect Account Number"
   defp issue_error(x), do: x
 
   defp handle_progress(
@@ -152,7 +153,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
       <div class="flex space-x-4">
         <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
-        <p>Descriptive record has the following error: <%= error_to_string(@error) %></p>
+        <p>Descriptive record has the following issue(s): <%= error_to_string(@error) %></p>
       </div>
     </div>
     """
@@ -179,7 +180,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
-      <p>File Total record has the following error: <%= error_to_string(@error) %></p>
+      <p>File Total record has the following issue(s): <%= error_to_string(@error) %></p>
     </div>
     </div>
     """
@@ -205,7 +206,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
-      <p>Detail record has the following error: <%= error_to_string(@error) %></p>
+      <p>Detail record has the following issue(s): <%= error_to_string(@error) %></p>
     </div>
     </div>
     """
@@ -219,7 +220,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <div class="flex space-x-4">
       <Heroicons.exclamation_circle class="w-6 h-6 text-red-900 fill-red-200" />
-      <p>Detail record has the following error on line <%= @line %>: <%= error_to_string(@error) %></p>
+      <p>Detail record has the following issue(s) on line <%= @line %>: <%= error_to_string(@error) %></p>
     </div>
     </div>
     """
