@@ -54,7 +54,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
       end
       |> assign(running: false)
 
-    {:noreply, socket}
+    {:noreply, clear_flash(socket, :success)}
   end
 
   @impl Phoenix.LiveView
