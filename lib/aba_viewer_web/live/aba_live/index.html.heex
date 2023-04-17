@@ -23,7 +23,7 @@
   <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
   <%= for err <- upload_errors(@uploads.avatar, entry) do %>
     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-      <span class="font-medium">Error!</span> <%= error_to_string(err) %>
+      <span class="font-medium">Error: </span> <%= error_to_string(err) %>
     </div>
   <% end %>
 
