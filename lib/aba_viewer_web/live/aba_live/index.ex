@@ -243,9 +243,11 @@ defmodule AbaViewerWeb.AbaLive.Index do
     assigns = assign_new(assigns, :item, fn -> "" end)
 
     ~H"""
-    <div class={@bg_color}>
-
-    <%= inspect(@item) %>
+     <div class={"p-4 mb-4 text-sm rounded-lg #{@bg_color}"} role="alert">
+    <div class="flex space-x-4">
+      <p>Unmanaged view: </p>
+      <%= inspect(@item) %>
+    </div>
     </div>
     """
   end
