@@ -1,13 +1,7 @@
 name: Fly Deploy
 on:
-  workflow_dispatch:
-  push:
-    paths:
-      - '**.ex'
-      - '**.exs'
-      - '!**.md'
-    branches:
-      - main
+  release:
+    types: [published]
 jobs:
   deploy:
     name: Deploy app
@@ -15,7 +9,12 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v3
+      - name: update APP_VERSION
+        run: |
+          sed -i "s#<APP_VERSION>#${{ github.ref_name }}#g" ./fly.toml
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
+        name: Publishing v${{ github.ref_name }}
     env:
         FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        APP_VERSION: ${{ github.ref_name }}

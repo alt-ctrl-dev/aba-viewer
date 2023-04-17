@@ -7,6 +7,7 @@ primary_region = "syd"
 [env]
   PHX_HOST = "aba-viewer.fly.dev"
   PORT = "8080"
+  APP_VERSION = "<APP_VERSION>"
 
 [http_service]
   internal_port = 8080
