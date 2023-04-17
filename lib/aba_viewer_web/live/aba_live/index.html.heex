@@ -45,11 +45,21 @@
     <p class="middle text-center text-black dark:text-white">
       Result
     </p>
+    <%= if length(@result) == 0 do %>
+    <div class="p-4 mb-4 text-sm text-emerald-800 rounded-lg bg-emerald-50 dark:bg-gray-800 dark:text-emerald-400" role="alert">
+      <div class="flex space-x-4">
+        <Heroicons.check_circle class="w-6 h-6 text-green-900 fill-green-200" />
+        <p>File looks is good</p>
+      </div>
+    </div>
+    <% else %>
     <p class="middle text-center text-black dark:text-white">
       <%= for item <- @result do %>
       <.record item={item} />
       <% end %>
     </p>
+    <% end %>
+    
 </div>
 <% end %>
 <%= unless is_nil(@error) do %>

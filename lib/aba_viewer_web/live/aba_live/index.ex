@@ -50,6 +50,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
           assign(socket, error: "Multiple file records found. See line #{line}")
 
         output ->
+          output = Enum.filter(output, fn error -> elem(error, 1) == :error end)
           assign(socket, result: output)
       end
       |> assign(running: false)
