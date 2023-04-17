@@ -1,7 +1,7 @@
 defmodule AbaViewerWeb.AbaLive.Index do
   use AbaViewerWeb, :live_view
 
-  @max_file_size_bytes 10_485_760
+  @max_file_size_bytes 2_097_152
 
   @impl true
   def mount(_params, _session, socket) do
