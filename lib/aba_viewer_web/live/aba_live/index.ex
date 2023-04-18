@@ -35,7 +35,6 @@ defmodule AbaViewerWeb.AbaLive.Index do
 
   @impl Phoenix.LiveView
   def handle_info({ref, result}, socket) when socket.assigns.task.ref == ref do
-    IO.inspect(result, label: "result")
     Process.demonitor(ref, [:flush])
 
     socket =
@@ -71,7 +70,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
   defp error_to_string(:incorrect_length), do: "Incorrect length"
 
   defp error_to_string({:invalid_format, issues}),
-    do: Enum.map(issues, fn issue -> issue_error(issue) end) |> Enum.join(", ")
+    do: Enum.map_join(issues, ", ", fn issue -> issue_error(issue) end)
 
   defp error_to_string(x), do: "Unknown error #{inspect(x)}"
 
@@ -79,7 +78,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
 
   defp format_bytes(bytes, kind) when is_integer(bytes) do
     bytes = div(bytes, 1024)
-    #
+
     if bytes >= 1024 do
       format_bytes(bytes, kind + 1)
     else
@@ -125,12 +124,7 @@ defmodule AbaViewerWeb.AbaLive.Index do
 
             File.cp!(path, dest)
 
-            task =
-              Task.async(fn ->
-                result = AbaValidator.process_aba_file(dest)
-                File.rm!(dest)
-                result
-              end)
+            task = create_task(dest)
 
             {:ok, task}
           end
@@ -144,6 +138,17 @@ defmodule AbaViewerWeb.AbaLive.Index do
     else
       {:noreply, socket}
     end
+  end
+
+  # """
+  # Creates a task to read the ABA file and get the results. It deletes the file after processing it
+  # """
+  defp create_task(dest) do
+    Task.async(fn ->
+      result = AbaValidator.process_aba_file(dest)
+      File.rm!(dest)
+      result
+    end)
   end
 
   def record(%{item: {:descriptive_record, :error, result}} = assigns) do

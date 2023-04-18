@@ -48,7 +48,9 @@ defmodule AbaViewer.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:aba_validator, "~> 2.1"}
+      {:aba_validator, "~> 2.1"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.12", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -63,7 +65,14 @@ defmodule AbaViewer.MixProject do
       setup: ["deps.get", "assets.setup", "assets.build"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind default", "esbuild default"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
+      "quality.ci": [
+        "compile --all-warnings --warnings-as-errors",
+        "format --check-formatted",
+        "credo --strict",
+        "sobelow --exit --threshold medium",
+        "dialyzer"
+      ]
     ]
   end
 end
