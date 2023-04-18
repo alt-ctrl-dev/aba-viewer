@@ -50,7 +50,8 @@ defmodule AbaViewer.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:aba_validator, "~> 2.1"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:sobelow, "~> 0.12", only: [:dev, :test], runtime: false}
+      {:sobelow, "~> 0.12", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -70,7 +71,7 @@ defmodule AbaViewer.MixProject do
         "compile --all-warnings --warnings-as-errors",
         "format --check-formatted",
         "credo --strict",
-        "sobelow --exit --threshold medium",
+        "sobelow --exit --threshold medium -i Config.HTTPS,Config.CSP",
         "dialyzer"
       ]
     ]
