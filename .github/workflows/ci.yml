@@ -107,16 +107,22 @@ jobs:
       run: echo "### Failed on lint" >> $GITHUB_STEP_SUMMARY
       
     - name: Run static analysis for code consistency
-      run: mix credo
+      run: mix credo --strict
     
     - if: failure()
       run: echo "### Failed on credo" >> $GITHUB_STEP_SUMMARY
       
     - name: Run security-focused static analysis
-      run: mix sobelow
+      run: mix sobelow --exit
     
     - if: failure()
       run: echo "### Failed on sobelow" >> $GITHUB_STEP_SUMMARY
+      
+    - name: Run security-focused static analysis
+      run: mix dialyzer
+    
+    - if: failure()
+      run: echo "### Failed on dialyzer" >> $GITHUB_STEP_SUMMARY
 
     # Step: Execute the tests.
     - name: Run tests
