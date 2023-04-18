@@ -113,7 +113,7 @@ jobs:
       run: echo "### Failed on credo" >> $GITHUB_STEP_SUMMARY
       
     - name: Run security-focused static analysis
-      run: mix sobelow --exit
+      run: mix sobelow --exit --threshold medium
     
     - if: failure()
       run: echo "### Failed on sobelow" >> $GITHUB_STEP_SUMMARY

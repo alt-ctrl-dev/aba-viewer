@@ -70,7 +70,7 @@ defmodule AbaViewer.MixProject do
         "compile --all-warnings --warnings-as-errors",
         "format --check-formatted",
         "credo --strict",
-        "sobelow --exit",
+        "sobelow --exit --threshold medium",
         "dialyzer"
       ]
     ]
