@@ -2,6 +2,7 @@
 [![Unit tests](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/ci.yml)
 [![Fly Deploy](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/fly-cd.yml/badge.svg)](https://github.com/alt-ctrl-dev/aba-viewer/actions/workflows/fly-cd.yml)
 
+This is demo to showcase the use of [aba_validator](https://github.com/alt-ctrl-dev/aba_validator)
 Visit the live version here: https://aba-viewer.fly.dev/
 
 ## Pre-requisite
