@@ -9,7 +9,11 @@ defmodule AbaViewer.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        remove_defaults: [:unknown]
+      ]
     ]
   end
 

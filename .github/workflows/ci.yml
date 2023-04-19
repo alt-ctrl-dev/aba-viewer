@@ -96,7 +96,11 @@ jobs:
     # Step: Compile the project treating any warnings as errors.
     # Customize this step if a different behavior is desired.
     - name: Compiles without warnings
+      id: compile
       run: mix compile --warnings-as-errors
+      
+    - if: steps.compile.conclusion == 'failure'
+      run: echo "### Failed on lint" >> $GITHUB_STEP_SUMMARY
 
     # Step: Check that the checked in code has already been formatted.
     # This step fails if something was found unformatted.
@@ -118,16 +122,46 @@ jobs:
     - name: Run security-focused static analysis
       id: sobelow
       run: mix sobelow --exit --threshold medium -i Config.HTTPS,Config.CSP
-    
+      
     - if: steps.sobelow.conclusion == 'failure'
       run: echo "### Failed on sobelow" >> $GITHUB_STEP_SUMMARY
-      
-    - name: Run security-focused static analysis
-      id: dialyzer
-      run: mix dialyzer
     
-    - if: steps.dialyzer.conclusion == 'failure'
-      run: echo "### Failed on dialyzer" >> $GITHUB_STEP_SUMMARY
+    ## Don't cache PLTs based on mix.lock hash, as Dialyzer can incrementally update even old ones
+    ## Cache key based on Elixir & Erlang version (also useful when running in matrix)
+    #- name: Restore PLT cache
+    #  uses: actions/cache/restore@v3
+    #  id: plt_cache
+    #  with:
+    #    key: |
+    #      ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+    #    restore-keys: |
+    #      ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+    #    path: |
+    #      priv/plts
+          
+    ## Create PLTs if no cache was found
+    #- name: Create PLTs
+    #  if: steps.plt_cache.outputs.cache-hit != 'true'
+    #  run: mix dialyzer --plt
+
+    ## By default, the GitHub Cache action will only save the cache if all steps in the job succeed,
+    ## so we separate the cache restore and save steps in case running dialyzer fails.
+    #- name: Save PLT cache
+    #  uses: actions/cache/save@v3
+    #  if: steps.plt_cache.outputs.cache-hit != 'true'
+    #  id: plt_cache_save
+    #  with:
+    #    key: |
+    #      ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+    #    path: |
+    #      priv/plts
+
+    #- name: Run dialyzer
+    #  id: dialyzer
+    #  run: mix dialyzer --format github
+    
+    #- if: steps.dialyzer.conclusion == 'failure'
+    #  run: echo "### Failed on dialyzer" >> $GITHUB_STEP_SUMMARY
 
     # Step: Execute the tests.
     - name: Run tests
