@@ -5,6 +5,7 @@ name: Unit tests
 # branch. Change the branch name if your project uses a
 # different name for the main branch like "master" or "production".
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.ex'
