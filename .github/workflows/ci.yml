@@ -101,27 +101,31 @@ jobs:
     # This step fails if something was found unformatted.
     # Customize this step as desired.
     - name: Check Formatting
+      id: formatting
       run: mix format --check-formatted
     
-    - if: failure()
+    - if: steps.formatting.conclusion == 'failure'
       run: echo "### Failed on lint" >> $GITHUB_STEP_SUMMARY
       
     - name: Run static analysis for code consistency
+      id: credo
       run: mix credo --strict
     
-    - if: failure()
+    - if: steps.credo.conclusion == 'failure'
       run: echo "### Failed on credo" >> $GITHUB_STEP_SUMMARY
       
     - name: Run security-focused static analysis
+      id: sobelow
       run: mix sobelow --exit --threshold medium
     
-    - if: failure()
+    - if: steps.sobelow.conclusion == 'failure'
       run: echo "### Failed on sobelow" >> $GITHUB_STEP_SUMMARY
       
     - name: Run security-focused static analysis
+      id: dialyzer
       run: mix dialyzer
     
-    - if: failure()
+    - if: steps.dialyzer.conclusion == 'failure'
       run: echo "### Failed on dialyzer" >> $GITHUB_STEP_SUMMARY
 
     # Step: Execute the tests.
