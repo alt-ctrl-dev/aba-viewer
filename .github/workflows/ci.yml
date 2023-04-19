@@ -96,7 +96,11 @@ jobs:
     # Step: Compile the project treating any warnings as errors.
     # Customize this step if a different behavior is desired.
     - name: Compiles without warnings
+      id: compile
       run: mix compile --warnings-as-errors
+      
+    - if: steps.compile.conclusion == 'failure'
+      run: echo "### Failed on lint" >> $GITHUB_STEP_SUMMARY
 
     # Step: Check that the checked in code has already been formatted.
     # This step fails if something was found unformatted.
