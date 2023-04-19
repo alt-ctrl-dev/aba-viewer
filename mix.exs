@@ -12,7 +12,7 @@ defmodule AbaViewer.MixProject do
       deps: deps(),
       dialyzer: [
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
-        ignore_warnings: "dialyzer.ignore-warnings"
+        remove_defaults: [:unknown]
       ]
     ]
   end
