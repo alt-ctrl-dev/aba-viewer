@@ -122,7 +122,7 @@ jobs:
     - if: steps.sobelow.conclusion == 'failure'
       run: echo "### Failed on sobelow" >> $GITHUB_STEP_SUMMARY
       
-    - name: Run security-focused static analysis
+    - name: Run dialyzer
       id: dialyzer
       run: mix dialyzer
     
