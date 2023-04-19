@@ -38,3 +38,6 @@ aba_viewer-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore PLTs
+/priv/plts/*.plt
+/priv/plts/*.plt.hash
